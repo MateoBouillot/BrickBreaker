@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+
+  "type": "object",
+
+  "properties": {
+    "levels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "levelNumber": { "type": "integer" },
+          "bricks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "x": { "type": "integer" },
+                "y": { "type": "integer" },
+                "brickColor": { "type": "string" },
+                "brickType": { "type": "string" }
+              },
+              "required": ["x", "y", "brickColor"]
+            }
+          }
+        },
+        "required": ["levelNumber", "bricks"]
+      }
+    }
+  },
+  "required": ["levels"]
+}
