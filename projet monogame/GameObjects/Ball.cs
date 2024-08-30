@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Diagnostics;
 
 namespace BrickBreaker.GameObjects
 {
@@ -102,6 +103,7 @@ namespace BrickBreaker.GameObjects
             {
                 if (brick.isBlack == isBlack)// calcul du point du rectangle brick le plus proche de la balle
                 {
+
                     float closestX = MathF.Max(brick.position.X - brick.offsetX, MathF.Min(position.X, brick.position.X + brick.offsetX));
                     float closestY = MathF.Max(brick.position.Y - brick.offsetY, MathF.Min(position.Y, brick.position.Y + brick.offsetY));
 

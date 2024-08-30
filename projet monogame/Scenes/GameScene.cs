@@ -16,7 +16,9 @@ namespace BrickBreaker.Scenes
 
         public override void Update(float dt)
         {
-            levelsManager.Update();
+            levelsManager.CheckIfNewLevel();
+            levelsManager.CheckIfGameOver();
+            levelsManager.SelectLevel();
             base.Update(dt);
         }
     }

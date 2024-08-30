@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -47,20 +48,15 @@ namespace BrickBreaker.Services
             data = JsonConvert.DeserializeObject<Data>(json);
         }
 
-        public void Update()
-        {
-            CheckIfGameOver();
-            CheckIfNewLevel();
-            SelectLevel();
-        }
-
         public void CheckIfGameOver()
         {
             if (!Scene.gameObjects.OfType<Ball>().Any())
             {
-                Scene.gameObjects.Clear();
+
+                Scene.gameObjects.Clear(); 
                 bricksList.Clear();
                 ServiceLocator.Get<IScenesManager>().Load<GameOverScene>();
+                
             }
         }
 
@@ -69,7 +65,6 @@ namespace BrickBreaker.Services
             if (bricksList.Count == 0)
             {
                 _currentLevel++;
-                Scene.gameObjects.Clear();
                 LoadNewLevel();
             }
         }
@@ -84,14 +79,12 @@ namespace BrickBreaker.Services
             {
                 _keyAlreadyPressed = true;
                 _currentLevel++;
-                Scene.gameObjects.Clear();
                 LoadNewLevel();
             }
             else if (keyboardState.IsKeyDown(Keys.Subtract) && !_keyAlreadyPressed && _currentLevel > 1)
             {
                 _keyAlreadyPressed = true;
                 _currentLevel--;
-                Scene.gameObjects.Clear();
                 LoadNewLevel();
             }
             else if (keyboardState.IsKeyUp(Keys.Subtract) && keyboardState.IsKeyUp(Keys.Add))
@@ -100,6 +93,9 @@ namespace BrickBreaker.Services
 
         public void LoadNewLevel()
         {
+            Scene.gameObjects.Clear();
+            bricksList.Clear();
+
             // mise en place du background pour quand on arrive du menu
             Background background = new Background(720, 1280);
             background.ChangeTargetScale("Game");
